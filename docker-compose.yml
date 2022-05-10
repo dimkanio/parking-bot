@@ -1,0 +1,38 @@
+version: "3.1"
+services:
+  db:
+    container_name: parking_db
+    image: postgres
+    restart: always
+    volumes:
+      - shared_data:/var/lib/postgresql/data
+      - ./db/dbinit.sql:/docker-entrypoint-initdb.d/dbinit.sql
+    environment:
+      - POSTGRES_NAME=parking
+      - POSTGRES_USER=parking
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD_1}
+    ports:
+      - "5433:5432"
+
+  app :
+    container_name: parking_app
+    build:
+      context: .
+      dockerfile: ./app/Dockerfile
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      - TOKEN=${TOKEN}
+      - PARKING_CHAT_ID=${PARKING_CHAT_ID}
+      - DBPATH=${DBPATH}
+      - DATABASE_URL=postgresql://parking:${POSTGRES_PASSWORD_2}@db:5432/parking
+      - DATABASE_URL=${DATABASE_URL}
+      - HOME_URL=${HOME_URL}
+      - SALT=${SALT}
+      - LOGLEVEL=${LOGLEVEL}
+    depends_on:
+      - db
+#/var/lib/docker/volumes/admin-duty-bot_shared_data/_data
+volumes:
+  shared_data:
