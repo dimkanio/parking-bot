@@ -27,7 +27,6 @@ services:
       - PARKING_CHAT_ID=${PARKING_CHAT_ID}
       - DBPATH=${DBPATH}
       - DATABASE_URL=postgresql://parking:${POSTGRES_PASSWORD_2}@db:5432/parking
-      - DATABASE_URL=${DATABASE_URL}
       - HOME_URL=${HOME_URL}
       - SALT=${SALT}
       - LOGLEVEL=${LOGLEVEL}
