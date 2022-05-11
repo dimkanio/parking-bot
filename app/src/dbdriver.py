@@ -32,16 +32,17 @@ class DBDriver:
                 cur.execute(query)
                 self.connection.commit()
                 logging.info("*************Query executed successfully*************************")
-                colnames = [desc[0] for desc in cur.description]
-                cursor_data = cur.fetchall()
-                
-                if cursor_data:
-                    logging.info(cursor_data)
-                    for row in cursor_data:
-                        dictdata = dict()
-                        for col in colnames:
-                            dictdata[col] = row[col]
-                        output.append(dictdata)
+                if "SELECT" in query.strip()[0:7].upper():
+                    colnames = [desc[0] for desc in cur.description]
+                    cursor_data = cur.fetchall()
+                    
+                    if cursor_data:
+                        logging.info(cursor_data)
+                        for row in cursor_data:
+                            dictdata = dict()
+                            for col in colnames:
+                                dictdata[col] = row[col]
+                            output.append(dictdata)
 
         except (Exception, psycopg2.DatabaseError) as error:
             logging.error(f"The error '{error}' occurred".format(error))

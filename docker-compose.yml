@@ -32,6 +32,6 @@ services:
       - LOGLEVEL=${LOGLEVEL}
     depends_on:
       - db
-#/var/lib/docker/volumes/admin-duty-bot_shared_data/_data
+#/var/lib/docker/volumes/parking-bot_shared_data/_data
 volumes:
   shared_data:
