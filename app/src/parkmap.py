@@ -193,13 +193,13 @@ class ParkMap:
         str_hash = date_today + " " + SALT
         map_key_new = hashlib.md5(str_hash.encode('utf-8')).hexdigest()
 
-        if (str(map_key_new).lower() != str(map_key).lower()):
+        if (str(map_key_new).lower() != str(map_key).lower()) or map_key is None:
             await db.update_map_key(map_key_new)
             map_key = await db.get_map_key()
-            logging.info(map_key)
+            logging.info(str(map_key))
         del db
 
-        return HOME_URL + "index.php?key=" + map_key 
+        return HOME_URL + "index.php?key=" + str(map_key) 
         
 
 
