@@ -18,7 +18,7 @@ docker-compose up --build
 
 4. To stop use
 ```bash
-docker-compose dowh
+docker-compose down
 ```
 
 
